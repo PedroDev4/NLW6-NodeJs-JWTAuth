@@ -1,5 +1,6 @@
 import { User } from "../../entities/User";
 import { UsersRepository } from "../../repositories/implementations/UsersRepository";
+import { AppError } from "../../shared/Errors/AppError";
 
 interface IRequest {
     name: string;
@@ -13,13 +14,13 @@ class CreateUserService {
         const usersRepository = new UsersRepository();
 
         if (!email) {
-            throw new Error("Provided email incorrect!");
+            throw new AppError("Provided email incorrect!");
         }
 
         const userExists = await usersRepository.findByEmail(email);
 
         if (userExists) {
-            throw new Error("User already exists!");
+            throw new AppError("User already exists!");
         }
 
         const user = await usersRepository.create(
