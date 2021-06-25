@@ -36,7 +36,7 @@ class AuthenticateUserService {
         // Gerando JWT
         const token = sign({
             email: user.email // Payload
-        }, "26e959806e31801936d2bc02e2cd849e", { // Security key
+        }, process.env.JWT_SECURITY_KEY, { // Security key
             subject: user.id,
             expiresIn: "1d"
         });

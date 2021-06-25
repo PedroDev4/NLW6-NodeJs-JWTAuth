@@ -28,7 +28,7 @@ async function ensureAuthenticated(request: Request, response: Response, next: N
     try {
 
         // Recuperar informações do usuário através do token;
-        const { sub: id } = verify(token, "26e959806e31801936d2bc02e2cd849e") as IPayload; // Forçando o retorno da função verify ser do tipo IPayload
+        const { sub: id } = verify(token, process.env.JWT_SECURITY_KEY) as IPayload; // Forçando o retorno da função verify ser do tipo IPayload
 
         const usersRepository = new UsersRepository();
         const user = await usersRepository.findById(id);
